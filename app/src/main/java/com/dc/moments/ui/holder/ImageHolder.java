@@ -66,11 +66,16 @@ public class ImageHolder extends MyBaseHolder<String> {
             });
         } else {    // 多张图片
             // 显示宫格图片
-            int imageResId = Global.getResId(context, imagePath);
-            ivImage.setBackgroundResource(imageResId);
+            ImagerLoaderUtil.getInstance(context).displayMyImage(imagePath,ivImage,new SimpleImageLoadingListener(){
 
-            param.width = Global.getGridWidth();    // 指定宫格图片的宽
-            param.height = Global.getGridWidth();
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    super.onLoadingComplete(imageUri, view, loadedImage);
+                    param.width = Global.getGridWidth();    // 指定宫格图片的宽
+                    param.height = Global.getGridWidth();
+                    ivImage.setImageBitmap(loadedImage);
+                }
+            });
         }
     }
 

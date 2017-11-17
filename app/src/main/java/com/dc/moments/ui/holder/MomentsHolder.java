@@ -79,7 +79,7 @@ public class MomentsHolder extends MyBaseHolder<Moment.MomentBean> {
     protected void onRefreshView(Moment.MomentBean bean, int position) {
         // 显示用户名
         if (bean.getSender() == null) {
-            tvUsername.setText("无名");
+            tvUsername.setText("noname");
         } else {
             tvUsername.setText(bean.getSender().getUsername());
 
