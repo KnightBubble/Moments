@@ -1,12 +1,13 @@
 package com.dc.moments.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by chenzhiwei on 17/11/16.
  */
 
-public class Moment {
+public class Moment implements Serializable{
     private List<MomentBean> moments;
 
     public List<MomentBean> getMoments() {
@@ -17,7 +18,7 @@ public class Moment {
         this.moments = moments;
     }
 
-    public static class MomentBean {
+    public class MomentBean implements Serializable{
         /**
          * content : 沙发！
          * images : [{"url":"https://encrypted-tbn1.gstatic
@@ -90,7 +91,7 @@ public class Moment {
             return comments;
         }
 
-        public static class SenderEntity {
+        public class SenderEntity implements Serializable{
             private String username;
             private String nick;
             private String avatar;
@@ -120,7 +121,7 @@ public class Moment {
             }
         }
 
-        public static class ImagesEntity {
+        public class ImagesEntity implements Serializable{
             private String url;
 
             public void setUrl(String url) {
@@ -132,7 +133,7 @@ public class Moment {
             }
         }
 
-        public static class CommentsEntity {
+        public class CommentsEntity implements Serializable{
             private String content;
             /**
              * username : outman
