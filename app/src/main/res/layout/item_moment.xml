@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp"
     android:background="@color/white"
     android:descendantFocusability="blocksDescendants"
     android:orientation="vertical">
@@ -60,7 +59,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="65dp"
         android:layout_marginTop="5dp"
-        android:text="这是朋友圈内容...这是朋友圈内容..."
+        android:text="这是朋友圈内容..."
         android:textColor="@color/item_text_main"
         android:textSize="16sp"/>
 
@@ -75,11 +74,6 @@
         android:listSelector="@color/transparent"
         android:visibility="gone"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/activity_bg"/>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -93,5 +87,22 @@
             android:background="@drawable/discuss"/>
 
     </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/list_divider"
+        android:visibility="gone"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="10dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="3dp"
+        android:background="@color/activity_bg"/>
 
 </LinearLayout>

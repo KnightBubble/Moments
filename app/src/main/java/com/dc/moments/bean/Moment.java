@@ -43,34 +43,34 @@ public class Moment {
          * .com/images?q=tbn:ANd9GcRJm8UXZ0mYtjv1a48RKkFkdyd4kOWLJB0o_l7GuTS8-q8VF64w
          */
 
-        private Moments.SenderEntity sender;
+        private MomentBean.SenderEntity sender;
         /**
          * url : https://encrypted-tbn1.gstatic
          * .com/images?q=tbn:ANd9GcRDy7HZaHxn15wWj6pXE4uMKAqHTC_uBgBlIzeeQSj2QaGgUzUmHg
          */
 
-        private List<Moments.ImagesEntity> images;
+        private List<MomentBean.ImagesEntity> images;
         /**
          * content : Good.
          * sender : {"username":"outman","nick":"Super hero","avatar":"https://encrypted-tbn3.gstatic
          * .com/images?q=tbn:ANd9GcRJm8UXZ0mYtjv1a48RKkFkdyd4kOWLJB0o_l7GuTS8-q8VF64w"}
          */
 
-        private List<Moments.CommentsEntity> comments;
+        private List<MomentBean.CommentsEntity> comments;
 
         public void setContent(String content) {
             this.content = content;
         }
 
-        public void setSender(Moments.SenderEntity sender) {
+        public void setSender(MomentBean.SenderEntity sender) {
             this.sender = sender;
         }
 
-        public void setImages(List<Moments.ImagesEntity> images) {
+        public void setImages(List<MomentBean.ImagesEntity> images) {
             this.images = images;
         }
 
-        public void setComments(List<Moments.CommentsEntity> comments) {
+        public void setComments(List<MomentBean.CommentsEntity> comments) {
             this.comments = comments;
         }
 
@@ -78,15 +78,15 @@ public class Moment {
             return content;
         }
 
-        public Moments.SenderEntity getSender() {
+        public MomentBean.SenderEntity getSender() {
             return sender;
         }
 
-        public List<Moments.ImagesEntity> getImages() {
+        public List<MomentBean.ImagesEntity> getImages() {
             return images;
         }
 
-        public List<Moments.CommentsEntity> getComments() {
+        public List<MomentBean.CommentsEntity> getComments() {
             return comments;
         }
 
@@ -141,13 +141,13 @@ public class Moment {
              * .com/images?q=tbn:ANd9GcRJm8UXZ0mYtjv1a48RKkFkdyd4kOWLJB0o_l7GuTS8-q8VF64w
              */
 
-            private Moments.CommentsEntity.SenderEntity sender;
+            private MomentBean.SenderEntity sender;
 
             public void setContent(String content) {
                 this.content = content;
             }
 
-            public void setSender(Moments.CommentsEntity.SenderEntity sender) {
+            public void setSender(MomentBean.SenderEntity sender) {
                 this.sender = sender;
             }
 
@@ -155,39 +155,10 @@ public class Moment {
                 return content;
             }
 
-            public Moments.CommentsEntity.SenderEntity getSender() {
+            public MomentBean.SenderEntity getSender() {
                 return sender;
             }
 
-            public static class SenderEntity {
-                private String username;
-                private String nick;
-                private String avatar;
-
-                public void setUsername(String username) {
-                    this.username = username;
-                }
-
-                public void setNick(String nick) {
-                    this.nick = nick;
-                }
-
-                public void setAvatar(String avatar) {
-                    this.avatar = avatar;
-                }
-
-                public String getUsername() {
-                    return username;
-                }
-
-                public String getNick() {
-                    return nick;
-                }
-
-                public String getAvatar() {
-                    return avatar;
-                }
-            }
         }
 
     }

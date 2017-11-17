@@ -82,10 +82,10 @@ public class Global {
 
     /** 获取宫格图片的宽高 */
     public static int getGridWidth() {
-        // 左边距：   10dp
+        // 左边距：   65dp
         // 右边距：   10dp
         // 图片宫格的宽度 = (屏幕宽度-左边距-右边距) / 3
-        return (Global.mScreenWidth - Global.dp2px(10 + 10)) / 3;
+        return (Global.mScreenWidth - Global.dp2px(65 + 10)) / 3;
     }
 
     /**

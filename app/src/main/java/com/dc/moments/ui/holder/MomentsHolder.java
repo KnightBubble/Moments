@@ -3,6 +3,7 @@ package com.dc.moments.ui.holder;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,9 +20,12 @@ import com.dc.moments.R;
 import com.dc.moments.base.Global;
 import com.dc.moments.bean.Moment;
 import com.dc.moments.ui.activity.MainActivity;
+import com.dc.moments.ui.adapter.CommentAdapter;
 import com.dc.moments.ui.adapter.ImageAdapter;
 import com.dc.moments.ui.adapter.MyBaseAdapter;
+import com.dc.moments.util.ImagerLoaderUtil;
 import com.dc.moments.util.LinkifyUtil;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,19 +34,20 @@ import java.util.List;
  * Created by chenzhiwei on 17/11/16.
  */
 
-public class MomentsHolder extends MyBaseHolder<Moment.MomentBean>{
+public class MomentsHolder extends MyBaseHolder<Moment.MomentBean> {
 
     private ImageView ivAvatar;
     private TextView tvUsername;
     private TextView tvNick;
     private TextView tvContent;
-    private RecyclerView rvImages;
+    private RecyclerView rvImages,recycler_comments;
     private ImageAdapter imageAdapter;
+    private CommentAdapter commentAdapter;
     private GridLayoutManager layoutManager;
 
     public MomentsHolder(Context context, ViewGroup parent,
-                       MyBaseAdapter<Moment.MomentBean> adapter,
-                       int itemType) {
+                         MyBaseAdapter<Moment.MomentBean> adapter,
+                         int itemType) {
         super(context, parent, adapter, itemType, R.layout.item_moment);
     }
 
@@ -53,6 +58,13 @@ public class MomentsHolder extends MyBaseHolder<Moment.MomentBean>{
         tvUsername = (TextView) itemView.findViewById(R.id.tv_username);
         tvNick = (TextView) itemView.findViewById(R.id.tv_nick);
         tvContent = (TextView) itemView.findViewById(R.id.tv_content);
+
+        //展示评论
+        recycler_comments = (RecyclerView) itemView.findViewById(R.id.recycler_comment);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+        recycler_comments.setLayoutManager(linearLayoutManager);
+        commentAdapter = new CommentAdapter(context,null);
+        recycler_comments.setAdapter(commentAdapter);
 
         // 展示九宫格图片
         rvImages = (RecyclerView) itemView.findViewById(R.id.rv_images);
@@ -80,21 +92,41 @@ public class MomentsHolder extends MyBaseHolder<Moment.MomentBean>{
             }
 
             // 显示头像
-            Glide.with(context).load(bean.getSender().getAvatar()).asBitmap().into(new SimpleTarget<Bitmap>() {
+//            Glide.with(context).load(bean.getSender().getAvatar()).asBitmap().into(new SimpleTarget<Bitmap>() {
+//
+//                @Override
+//                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap>
+//                        glideAnimation) {
+//                    ivAvatar.setImageBitmap(resource);
+//                }
+//            });
+            ImagerLoaderUtil.getInstance(context).displayMyImage(bean.getSender().getAvatar(),
+                    ivAvatar, new SimpleImageLoadingListener() {
 
                 @Override
-                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap>
-                        glideAnimation) {
-                    ivAvatar.setImageBitmap(resource);
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    super.onLoadingComplete(imageUri, view, loadedImage);
+                    ivAvatar.setImageBitmap(loadedImage);
                 }
             });
         }
 
-        // 朋友圈内容
-//         tvContent.setText(bean.getContent());
-        LinkifyUtil.addCustomLink(tvContent);
-        LinkifyUtil.addCustomLink2(tvContent);
+        // 显示朋友圈内容
+        if (TextUtils.isEmpty(bean.getContent())) {
+            tvContent.setVisibility(View.GONE);
+        } else {
+            tvContent.setText(bean.getContent());
+        }
 
+        //显示评论
+        int commentsCount = bean.getComments() == null ? 0 : bean.getComments().size();
+        if (commentsCount == 0) {    //没有评论
+            recycler_comments.setVisibility(View.GONE);
+        } else {
+            recycler_comments.setVisibility(View.VISIBLE);
+            List<Moment.MomentBean.CommentsEntity> commentsEntityList = bean.getComments();
+            commentAdapter.setDatas(commentsEntityList);
+        }
 
         // 显示朋友圈图片
         int imageCount = bean.getImages() == null
